@@ -5,19 +5,6 @@ def print_matrix(matrix):
         print()
     print("\n")
 
-
-def get_movimientos():
-    movimientos = [
-        ["id_mov", "fecha", "monto", "Tipo_mov", "categoria", "Descripcion", "Cuenta_origen", "Cuenta_destino"],
-        [1, "8/16/2025", 3500, "Gasto", "Transporte", "Recarga Sube", "-", "-"],
-        [2, "8/17/2025", 12000, "Gasto", "Ocio", "Cena en restaurante", "-", "-"],
-        [3, "8/18/2025", 2000, "Gasto", "Salud", "Suplementos GYM", "-", "-"],
-        [4, "8/19/2025", 15000, "Transferencia", "-", "Paso de banco hipotecario a BBVA", "Banco hipotecario", "BBVA"],
-        [5, "8/20/2025", 8500, "Gasto", "Hogar", "Pago de internet", "-", "-"]
-    ]
-    return movimientos
-
-
 def get_categorias():
     categorias = [
         ["id_cat", "categoria", "subcategoria", "Descripcion"],
@@ -30,13 +17,40 @@ def get_categorias():
     ]
     return categorias
 
+def create_movimientos():
+    return [["id_mov", "fecha", "monto", "Tipo_mov", "categoria", "Descripcion", "Cuenta_origen", "Cuenta_destino"]]
 
+def add_expense(movimientos, categorias):
+    id_mov = len(movimientos)
+
+    fecha = input("Ingrese la fecha (MM/DD/YYYY): ")
+    monto = input("Ingrese el monto: ")
+    tipo_mov = input("Ingrese el tipo de movimiento (Gasto/Transferencia): ")
+
+    print("\nSeleccione la categoría:")
+    for cat in categorias[1:]:
+        print(f"{cat[0]} - {cat[1]} ({cat[2]})")
+
+    cat_id = int(input("Ingrese el número de categoría: "))
+
+    categoria = "Desconocido"
+    for cat in categorias[1:]:
+        if cat[0] == cat_id:
+            categoria = cat[1]
+
+    descripcion = input("Ingrese la descripción: ")
+    cuenta_origen = input("Ingrese la cuenta origen (o '-' si no aplica): ")
+    cuenta_destino = input("Ingrese la cuenta destino (o '-' si no aplica): ")
+    movimientos.append([id_mov, fecha, monto, tipo_mov, categoria, descripcion, cuenta_origen, cuenta_destino])
+
+    print("\n Movimiento agregado correctamente!\n")
 
 def main():
-    print("=== Movimientos ===")
-    print_matrix(get_movimientos())
-
-    print("=== Categorias ===")
-    print_matrix(get_categorias())
+    categorias = get_categorias()
+    movimientos = create_movimientos()
+    add_expense(movimientos, categorias)
+    add_expense(movimientos, categorias)
+    print("\n=== Movimientos registrados ===")
+    print_matrix(movimientos)
 
 main()
