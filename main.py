@@ -1,13 +1,11 @@
-# Function to print a matrix in table format
 def print_matrix(matrix):
     for row in matrix:
         for col in row:
-            print(f"{col:<20}", end="")  # Left align, width 20 for spacing
+            print(f"{col:<20}", end="")
         print()
     print("\n")
 
 
-# First table: movimientos
 def get_movimientos():
     movimientos = [
         ["id_mov", "fecha", "monto", "Tipo_mov", "categoria", "Descripcion", "Cuenta_origen", "Cuenta_destino"],
@@ -20,7 +18,6 @@ def get_movimientos():
     return movimientos
 
 
-# Second table: categorias
 def get_categorias():
     categorias = [
         ["id_cat", "categoria", "subcategoria", "Descripcion"],
@@ -34,7 +31,7 @@ def get_categorias():
     return categorias
 
 
-# Main program
+
 def main():
     print("=== Movimientos ===")
     print_matrix(get_movimientos())
@@ -42,6 +39,4 @@ def main():
     print("=== Categorias ===")
     print_matrix(get_categorias())
 
-
-# Run program
 main()
