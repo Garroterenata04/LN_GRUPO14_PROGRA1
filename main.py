@@ -25,6 +25,7 @@ def add_expense(movimientos, categorias):
 
     fecha = input("Ingrese la fecha (MM/DD/YYYY): ")
     monto = input("Ingrese el monto: ")
+    movimientos.append([monto])
     tipo_mov = input("Ingrese el tipo de movimiento (Gasto/Transferencia): ")
 
     print("\nSeleccione la categoría:")
@@ -44,6 +45,59 @@ def add_expense(movimientos, categorias):
     movimientos.append([id_mov, fecha, monto, tipo_mov, categoria, descripcion, cuenta_origen, cuenta_destino])
 
     print("\n Movimiento agregado correctamente!\n")
+
+def calcular_estadisticas_movimientos(movimientos):
+    print("\n--- Estadísticas de Movimientos ---")
+    if len(movimientos) <= 1:
+        print("No hay movimientos registrados para calcular estadísticas.")
+        return
+
+    montos = [row[2] for row in movimientos[1:]]
+    suma_total = sum(montos)
+    promedio = suma_total / len(montos)
+    
+    print(f"Total de gastos: ${suma_total:.2f}")
+    print(f"Promedio de gastos: ${promedio:.2f}")
+
+def generar_reporte_producto():
+   
+    print("\n--- Generar Ficha de Producto ---")
+    nombre_producto = input("Ingrese el nombre del producto/servicio: ")
+    descripcion = input("Ingrese la descripción breve: ")
+
+#chequear!!!!
+    while True:
+        try:
+            precio_unitario = float(input("Ingrese el precio unitario: "))
+            cantidad = int(input("Ingrese la cantidad: "))
+            disponibilidad_str = input("Está disponible (True/False): ")
+            disponibilidad = disponibilidad_str.lower() == 'true'
+            break
+        except ValueError:
+            print("Entrada inválida. Asegúrese de ingresar números correctos.")
+            
+ 
+    if len(descripcion) > 50:
+        descripcion_final = descripcion[:47] + "..."
+    else:
+        descripcion_final = descripcion
+        
+    precio_total = precio_unitario * cantidad
+    disponibilidad_texto = "Sí" if disponibilidad else "No"
+    
+    print("\n" + "="*50)
+    print(" " * 12 + "Ficha de Producto/Servicio")
+    print("="*50)
+    
+    print(f"Producto: {nombre_producto:<40}")
+    print(f"Descripción: {descripcion_final:<37}")
+    print(f"Disponibilidad: {disponibilidad_texto:<34}")
+    print("-" * 50)
+    
+    print(f"Cantidad: {cantidad:>42}")
+    print(f"Precio Unitario: ${precio_unitario:>.2f}")
+    print(f"Total: ${precio_total:>.2f}")
+    print("=" * 50)
 
 """def main():
     categorias = get_categorias()
@@ -65,7 +119,8 @@ def main():
         print("2. Ver movimientos registrados")
         print("3. Modificar un movimiento")
         print("4. Eliminar un movimiento")
-        print("5. Salir")
+        print("5. Ver estadísticas de gastos") 
+        print("6. Salir")
         
         opcion = input("Seleccione una opción: ")
         
@@ -75,7 +130,7 @@ def main():
         elif opcion == '2':
             print("\n=== Movimientos registrados ===")
             print_matrix(movimientos)
-            
+        
         elif opcion == '3':
             id_modificar = int(input("Ingrese el ID del movimiento a modificar: "))
             encontrado = False
@@ -92,18 +147,23 @@ def main():
                 
         elif opcion == '4':
             id_eliminar = int(input("Ingrese el ID del movimiento a eliminar: "))
-            encontrado = False
             i = 0
-            while i < len(movimientos) and not encontrado:
-                if i > 0 and movimientos[i][0] == id_eliminar:
-                    del movimientos[i]
-                    print("El movimiento fue eliminado correctamente.")
-                    encontrado = True
-                i += 1
-            if not encontrado:
+            eliminado = []  
+            while i < len(movimientos) and eliminado == []:
+                if movimientos[i][0] == id_eliminar:
+                    eliminado = [movimientos.pop(i)] 
+                else:
+                    i += 1
+
+            if eliminado == []:
                 print("El movimiento ingresado no fue encontrado.")
+            else:
+                print("Movimiento eliminado:", eliminado[0])
         
-        elif opcion == '5':
+        elif opcion == '5': 
+            calcular_estadisticas_movimientos(movimientos)
+        
+        elif opcion == '6':
             corriendo = False
             print("Finalizando el programa...")
             
@@ -111,3 +171,4 @@ def main():
             print("La opción ingresada no es válida. Por favor, intente de nuevo.")
 
 main()
+                
