@@ -13,7 +13,7 @@ def get_categorias():
         [3, "Ocio", "Restaurantes", "Cena en restaurante"],
         [4, "Salud", "Gimnasio", "Suplementos GYM"],
         [5, "Transporte", "Pases", "Recarga Sube"],
-        [6, "Otros", "Adicciones", "Gramo de Flores"]
+        [6, "Otros", "Adicciones"]
     ]
     return categorias
 
