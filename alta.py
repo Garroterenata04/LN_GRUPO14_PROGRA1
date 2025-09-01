@@ -24,3 +24,16 @@ def add_expense(movimientos, categorias):
 
     print("\n Movimiento agregado correctamente!\n")
 
+def alta(movimientos):
+    id_alta = int(input("Ingrese el ID del movimiento que desea reactivar: "))
+    encontrado = 0
+    for movimiento in movimientos:
+        if movimiento[0] == id_alta and movimiento[3] == "baja":
+            movimiento[3] = "activo"
+            print(f"Movimiento {id_alta} reactivado correctamente.")
+            encontrado += 1
+            break  
+    if encontrado == 0:
+        print("El movimiento no fue encontrado o ya está activo.")
+
+
