@@ -18,11 +18,11 @@ def add_expense(movimientos, categorias):
             categoria = cat[1]
 
     descripcion = input("Ingrese la descripción: ")
-    cuenta_origen = input("Ingrese la cuenta origen (o '-' si no aplica): ")
-    cuenta_destino = input("Ingrese la cuenta destino (o '-' si no aplica): ")
+    cuenta_origen = input("Ingrese la cuenta origen ('-' si no aplica): ")
+    cuenta_destino = input("Ingrese la cuenta destino ('-' si no aplica): ")
     movimientos.append([id_mov, fecha, monto, tipo_mov, categoria, descripcion, cuenta_origen, cuenta_destino])
 
-    print("\n Movimiento agregado correctamente!\n")
+    print("\n El movimiento fue agregado correctamente\n")
 
 def alta(movimientos):
     id_alta = int(input("Ingrese el ID del movimiento que desea reactivar: "))
@@ -30,10 +30,10 @@ def alta(movimientos):
     for movimiento in movimientos:
         if movimiento[0] == id_alta and movimiento[3] == "baja":
             movimiento[3] = "activo"
-            print(f"Movimiento {id_alta} reactivado correctamente.")
+            print(f"Movimiento {id_alta} fue reactivado correctamente. ")
             encontrado += 1
             break  
     if encontrado == 0:
-        print("El movimiento no fue encontrado o ya está activo.")
+        print("El movimiento ingresado no fue encontrado o ya está activo. ")
 
 
